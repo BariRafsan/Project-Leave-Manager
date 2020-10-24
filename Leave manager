@@ -1,0 +1,363 @@
+#include <iostream>
+using namespace std;
+#include<stdio.h>
+#define NULL_VALUE -999999
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+
+
+
+
+//***************linked list class started here*************
+class Node {
+public:
+    int data;
+    char name;
+    Node* next;
+};
+
+class LinkedList{
+
+public:
+    LinkedList() { // constructor
+        head = NULL;
+        //head1 = NULL;
+
+    }
+    ~LinkedList() {}; // destructor
+    void addNode(int val);
+    int display();
+
+
+private:
+    Node* head;
+
+    //Queue queue;
+};
+
+
+
+void LinkedList::addNode(int val) {
+    if(val<0)
+    {
+        cout<<"The user cant take a leave"<<endl;
+    }
+    Node* newnode = new Node();
+    newnode->data = val;
+    newnode->next = NULL;
+    if (head == NULL) {
+        head = newnode;
+    }
+    else {
+        Node* temp = head; // head is not NULL
+        while (temp->next != NULL) {
+            temp = temp->next; // go to end of list
+        }
+        temp->next = newnode; // linking to newnode
+    }
+}
+int LinkedList::display() {
+    if (head == NULL) {
+        cout << "List is empty!" << endl;
+    }
+    else {
+            int cnt =0;
+            int i = 1;
+            cout<<"Sequentially (Horizontal)"<<"\n"<<"1. Casual Leave"<<"\n"<<"2. Sick Leave "<<"\n"<<"3. Annual Leave"<<"\n"<<"4. Maternoty Leave \n"<<endl;
+
+        Node* temp = head;
+        while (temp != NULL) {
+                if(cnt ==4*i)
+        {
+            cout<<endl;
+            i++;
+        }
+            cout <<"   "<<temp->data << " -> ";
+            temp = temp->next;
+            cnt++;
+        }
+        cout << endl;
+    }
+    //head=NULL;
+}
+
+//********************** linked list class ends here *****************
+
+//*************************Queue Class Starts here ******************
+struct listnode {
+    int id;
+   char name[50];
+   //int id;
+   char gender[10];
+   struct listnode *next;
+};
+
+struct listnode* front = NULL;
+struct listnode* rear = NULL;
+struct listnode* temp;
+int cnt =0;
+void Insert() {
+
+   cout<<"Enter new employees id ::";
+   int ssss;
+   scanf("%d",&ssss);
+
+   cout<<"Enter the name of the employee ::";
+   char name[50];
+   scanf("%s",&name);
+   cout<<"Enter employees Gender ::";
+   char gen[10];
+   scanf("%s",&gen);
+   if (rear == NULL) {
+      rear = (struct listnode *)malloc(sizeof(struct listnode));
+      rear->next = NULL;
+      rear->id = ssss;
+      strcpy(rear->name, name);
+      strcpy(rear->gender,gen);
+      cnt++;
+
+      front = rear;
+   } else {
+      temp=(struct listnode *)malloc(sizeof(struct listnode));
+      rear->next = temp;
+      strcpy(temp->gender,gen);
+      temp->id = ssss;
+      strcpy(temp->name, name);
+    cnt++;
+      temp->next = NULL;
+      rear = temp;
+   }
+}
+void Display() {
+   temp = front;
+   if ((front == NULL) && (rear == NULL)) {
+      printf("Queue is empty");
+      return;
+   }
+   //printf("Queue elements are:");
+   cout<<"*Employee's Id   * Employee's Name   * Enployee's Gender"<<endl;
+   while (temp != NULL) {
+        //cout<<"*Employee's Id   * Employee's Name   * Enployee's Gender"<<endl;
+
+      printf("\t%d \t",temp->id);
+      printf("\t%s\t",temp->name);
+      printf("\t%s\t",temp->gender);
+      cout<<endl;
+      temp = temp->next;
+   }
+   cout<<endl;
+   cout<<endl;
+}
+
+
+//****************Queue class ends here************************
+
+
+//***************************Stack Class Starts Here *****************
+
+class stack
+{
+    int stackInitSize ;
+    int stackMaxSize;
+    int  data[100];
+    int length;
+    int top;
+public:
+    stack();
+    ~stack();
+    void push(int a); //insert item in the queue
+    void display(); //returns the item according to FIFO
+    bool empty(); //return true if Queue is empty
+};
+
+stack::stack()
+{
+    stackInitSize = 100 ;
+    stackMaxSize = stackInitSize;
+    length = 0 ;
+    top = 0;
+
+}
+void stack::push(int item)
+{
+	if (length == stackMaxSize)
+	{
+	    cout<<"The employee list is full"<<endl;
+	}
+	if (item<0)
+
+	{
+	    cout<<"The user can't take the requested leave"<<endl;
+
+	}
+	data[top] = item ; //store new item
+    top++;
+    length++ ;
+}
+void stack::display()
+{
+    int j =1;
+    cout<<"Sequentially (Horizontal)"<<"\n"<<"1. Casual Leave(15)"<<"\n"<<"2. Sick Leave(12) "<<"\n"<<"3. Annual Leave(2)"<<"\n"<<"4. Maternoty Leave(2) \n"<<endl;
+    for(int i=0;i<=top-1;i++)
+    {
+        if(i ==4*j)
+        {
+            cout<<endl;
+            j++;
+        }
+        cout<<"   "<<data[i]<<"->";
+        //if(i ==3 || i ==7 || i== 11 || i == 15)
+    }
+    cout<<endl;
+
+}
+
+stack::~stack()
+{
+}
+
+
+int main() {
+    cout<<"*************************************Leave Management System ***************************************"<<endl<<endl<<endl;
+
+
+    stack st;
+
+    LinkedList* list = new LinkedList();
+    int casual_leave = 15;
+    int sick_leave = 12;
+    int annual_leave = 2;
+    int maternity_leave = 2;
+    int tak_cas = 0;
+    int tak_sick = 0;
+    int tak_annu = 0;
+    int tak_mater = 0;
+    st.push(casual_leave);
+    st.push(sick_leave);
+    st.push(annual_leave);
+    st.push(maternity_leave);
+    list->addNode(tak_cas);
+    list->addNode(tak_sick);
+    list->addNode(tak_annu);
+    list->addNode(tak_mater);
+while(1)
+{
+    cout<<"1.Add new Employee  "<<"  "<<"2. Apply for leave"<<" "<<" 3. Available leave"<<" "<<" 4. Used Leave"<<endl;
+    cout<<"5. Display employee's Details "<<" "<<" 6. Report of average leaves "<<" "<<" 7. Exit "<<endl;
+    int ch;
+    cin>>ch;
+    if(ch==1)
+    {
+        //cout<<"Enter Neww Employee Name :: "<<endl;
+    Insert();
+
+
+    }
+    else if(ch==2)
+    {
+        cout<< "Select which leave you want :"<<endl;
+        cout<<"1. Casual leave (15) "<<endl;
+        cout<<"2. Sick leave (12) "<<endl;
+        cout<<"3. Annual leave (2) "<<endl;
+        cout<<"4. Maternity leave (2) "<<endl;
+        int n;
+        cin>>n;
+        if(n==1)
+        {
+                casual_leave--;
+                tak_cas++;
+    st.push(casual_leave);
+    st.push(sick_leave);
+    st.push(annual_leave);
+    st.push(maternity_leave);
+    list->addNode(tak_cas);
+    list->addNode(tak_sick);
+    list->addNode(tak_annu);
+    list->addNode(tak_mater);
+
+
+        }
+        else if(n==2)
+        {
+            sick_leave--;
+            tak_sick++;
+           st.push(casual_leave);
+    st.push(sick_leave);
+    st.push(annual_leave);
+    st.push(maternity_leave);
+    list->addNode(tak_cas);
+    list->addNode(tak_sick);
+    list->addNode(tak_annu);
+    list->addNode(tak_mater);
+
+        }
+        else if(n==3)
+        {
+            annual_leave--;
+            tak_annu++;
+            st.push(casual_leave);
+    st.push(sick_leave);
+    st.push(annual_leave);
+    st.push(maternity_leave);
+    list->addNode(tak_cas);
+    list->addNode(tak_sick);
+    list->addNode(tak_annu);
+    list->addNode(tak_mater);
+
+        }
+        else if(n==4)
+        {
+            maternity_leave--;
+            tak_mater++;
+            st.push(casual_leave);
+    st.push(sick_leave);
+    st.push(annual_leave);
+    st.push(maternity_leave);
+    list->addNode(tak_cas);
+    list->addNode(tak_sick);
+    list->addNode(tak_annu);
+    list->addNode(tak_mater);
+
+        }
+        else
+            break;
+    }
+    else if(ch==3)
+    {
+        st.display();
+
+    }
+    else if(ch==4)
+    {
+
+        list->display();
+    }
+    else if(ch==7)
+    {
+        cout<<"Thanks For viewing Our Small Project"<<endl;
+        cout<<"Regards from,"<<endl<<endl<<" Rafsan Bari Shafin "<<endl;
+        break;
+    }
+    else if(ch==5)
+    {
+        Display();
+        cout<<endl;
+    }
+    else if(ch == 6)
+    {
+        int sum = tak_annu+tak_cas+tak_mater+tak_sick;
+        cout<<sum<<endl;
+        cout<<cnt<<endl;
+
+        float g = (float)sum/cnt;
+        cout<<"Average Used Leave Taken is :";
+        printf("%f",g);
+        cout<<endl;
+        cout<<endl;
+    }
+
+}
+
+}
